@@ -1,0 +1,26 @@
+.container{
+  border: 1px solid rgb(194, 186, 147);
+  display: flex;
+  height: 80vh;
+  width:60vw;
+  justify-content:center;align-items:center;
+  background-color: rgb(220, 209, 181);
+  border-radius: 3px;
+  flex-direction: column;
+  gap:20px;
+}
+accodian{
+width:500px;
+}
+.item{
+  background-color:rgb(206, 87, 87);
+  margin-bottom:10px;
+  padding:10px 20px;
+}
+.title{
+color:white;display: flex;justify-content:space-between;
+cursor:pointer;
+}
+.answer{
+  background-color:rgb(66, 86, 36);
+}
