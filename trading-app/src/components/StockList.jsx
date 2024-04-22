@@ -1,0 +1,82 @@
+import { useState,useEffect } from "react";
+import finnHub from "../api/finnHub.js"
+function StockList(){
+  const defaultStocks=['GOOGL','MSFT','AMZN']
+  const[list,setlist]=useState(defaultStocks);
+  const[stock,setStocks]=useState([]);
+   const changeColor=(change)=>{
+    return change>0?"success":"danger"
+   }
+
+  useEffect(()=>{
+    let isMounted=true;
+    const fetchData=async()=>{ 
+      try{
+       const responses=await Promise.all(list.map((item)=>{
+        return finnHub.get('/quote',{
+          params:{
+            symbol:item
+          }
+        })
+       }))
+      //  console.log(responses);
+       const stockData=responses.map((res)=>{
+        return{
+        data:res.data,  
+        symbol:res.config.params.symbol}
+        })
+       console.log(stockData);
+       if(isMounted){
+          setStocks(stockData);//state changes with the array of objects
+       }
+    
+
+      }catch(error){
+        console("errOr is:",error);
+      }
+    }
+    fetchData(); 
+    return ()=> isMounted=false;
+  },[])// useEffect runs only when the component mounts therefore dependency array is empty[]
+  return<>
+  <nav className="navbar bg-body-tertiary">
+  <div className="container-fluid">
+    <form className="d-flex" role="search">
+      <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+      <button className="btn btn-outline-success" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+
+<table class="table table-dark table-hover">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Last</th>
+    <th>Chg</th>
+    <th>Chg%</th>
+    <th>High</th>
+    <th>Low</th>
+    <th>Open</th>
+    <th>Pclose</th>
+  </tr></thead><tbody>
+    {
+      stock.map((itemData)=>{
+        return(
+        <tr className="table-row" key={itemData.symbol}>
+          <td>{itemData.symbol}</td>
+          <td>{itemData.data.c}</td>
+          <td className="text-success">{itemData.data.d}</td>
+          <td classsName="text-danger">{itemData.data.dp}</td>
+          <td>{itemData.data.h}</td>
+          <td>{itemData.data.l}</td>
+          <td>{itemData.data.o}</td>
+          <td>{itemData.data.pc}</td>
+        </tr>)
+      })
+    }
+  </tbody>
+</table>
+  </>
+}
+export default StockList;
