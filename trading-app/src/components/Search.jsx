@@ -1,10 +1,41 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect,useContext } from "react";
+
 //import api
 import finnHub from "../api/finnHub.js";
-
+import { WatchListContext } from "../store/dataContext.jsx";
 const Search = () => {
+const {addStock} =useContext(WatchListContext)
+
   const [search, setSearch] = useState("");
   const [results,setResults] = useState([]);
+  const handleSearchClick=(e)=>{
+    console.log(e);
+ setSearch(e.target.innerText);
+  };
+  const renderDropdown = ()=>{
+    const showList=search.length>1?"show":null;
+    return(
+    
+    <ul style={{
+      height:"400px",
+      overflowY: 'scroll',
+      overflowX:"hidden",
+      cursor:"pointer",
+      width:"400px"
+    }} className={`dropdown-menu ${showList}`}>
+    {results.map((item)=>{
+            return (
+              <li className="dropdown-item" key={item.symbol} onClick={(e)=>{
+                console.log(item.symbol)//see how this works
+                addStock(item.symbol);
+                setSearch("");
+              }}>
+                {item.description}(item.symbol)</li>
+            )
+          })}
+    </ul>)
+        
+  }
   useEffect(() => {
     let isMounted = true;
     const fetchData = async () => {
@@ -51,11 +82,7 @@ const Search = () => {
           }}
         />
         <label htmlFor="search">SEARCH</label>
-        <ul className="dropdown-menu ">
-          <li>stock1</li>
-          <li>stock2</li>
-          <li>stock3</li>
-        </ul>
+       {renderDropdown()}
       </div>
     </div>
   );

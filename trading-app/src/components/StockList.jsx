@@ -1,10 +1,13 @@
-import { useState,useEffect } from "react";
+import { useState,useEffect,useContext } from "react";
 import { BsCaretUpFill,BsCaretDownFill } from "react-icons/bs";
 import finnHub from "../api/finnHub.js"
 import Search from "./Search.jsx";
+// import React from "react"
+import { WatchListContext } from "../store/dataContext.jsx";
 function StockList(){
-  const defaultStocks=['GOOGL','MSFT','AMZN']
-  const[list,setlist]=useState(defaultStocks);
+
+  const {list}=useContext(WatchListContext);
+  console.log("list hai:",list);
   const[stock,setStocks]=useState([]);
    const changeColor=(change)=>{
     return change>0?"success":"danger"
@@ -23,8 +26,10 @@ function StockList(){
             symbol:item
           }
         })
-       }))
-      //  console.log(responses);
+       }));
+       console.log(responses);
+       console.log("ye hai list",list);
+       
        const stockData=responses.map((res)=>{
         return{
         data:res.data,  
@@ -37,15 +42,16 @@ function StockList(){
     
 
       }catch(error){
-        console("errOr is:",error);
+        console.log("errOr is:",error);
       }
     }
     fetchData(); 
     return ()=> isMounted=false;
-  },[])// useEffect runs only when the component mounts therefore dependency array is empty[]
+  },[list])// useEffect runs only when the component mounts therefore dependency array is empty[]
   return(<div>
-
-<table class="table table-dark table-hover">
+    <Search/>
+ 
+<table className="table table-dark table-hover">
   <thead>
   <tr>
     <th>Name</th>
@@ -64,7 +70,7 @@ function StockList(){
           <td>{itemData.symbol}</td>
           <td>{itemData.data.c}</td>
           <td className={`text-${changeColor(itemData.data.d)}`}>{itemData.data.d}{renderIcon(itemData.data.d)}</td>
-          <td classsName={`text-${changeColor(itemData.data.dp)} `}>{itemData.data.dp}{renderIcon(itemData.data.dp)}</td>
+          <td className={`text-${changeColor(itemData.data.dp)} `}>{itemData.data.dp}{renderIcon(itemData.data.dp)}</td>
           <td>{itemData.data.h}</td>
           <td>{itemData.data.l}</td>
           <td>{itemData.data.o}</td>

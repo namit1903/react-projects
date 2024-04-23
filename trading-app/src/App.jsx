@@ -5,11 +5,12 @@ import {BrowserRouter,Routes,Route} from 'react-router-dom';
 import './App.css'
 import Summary from './pages/StockOverviewPage';
 import StockDetail from './pages/StockDetailPage';
-
+import{ListContextProvider} from'./store/dataContext';
 function App() {
 
   return (
     <><main className="container">
+      <ListContextProvider>
 <BrowserRouter>
 <Routes>
   <Route path='/' element={<Summary/>}/>
@@ -17,6 +18,7 @@ function App() {
   {/* symbol is a variable , colon is important to show it is a symbol */}
 </Routes>
 </BrowserRouter>
+</ListContextProvider>
 </main>
     </>
   )
