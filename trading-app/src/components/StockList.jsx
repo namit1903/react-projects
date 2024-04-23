@@ -1,6 +1,7 @@
 import { useState,useEffect } from "react";
 import { BsCaretUpFill,BsCaretDownFill } from "react-icons/bs";
 import finnHub from "../api/finnHub.js"
+import Search from "./Search.jsx";
 function StockList(){
   const defaultStocks=['GOOGL','MSFT','AMZN']
   const[list,setlist]=useState(defaultStocks);
@@ -42,15 +43,7 @@ function StockList(){
     fetchData(); 
     return ()=> isMounted=false;
   },[])// useEffect runs only when the component mounts therefore dependency array is empty[]
-  return<>
-  <nav className="navbar bg-body-tertiary">
-  <div className="container-fluid">
-    <form className="d-flex" role="search">
-      <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-      <button className="btn btn-outline-success" type="submit">Search</button>
-    </form>
-  </div>
-</nav>
+  return(<div>
 
 <table class="table table-dark table-hover">
   <thead>
@@ -81,6 +74,6 @@ function StockList(){
     }
   </tbody>
 </table>
-  </>
+  </div>)
 }
 export default StockList;

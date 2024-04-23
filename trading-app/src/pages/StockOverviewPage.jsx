@@ -7,7 +7,6 @@ export default function Summary(){
   <>
   <h1>ye summary hai</h1>
  <Search/>
- 
  <StockList/>
   </>)
 }
