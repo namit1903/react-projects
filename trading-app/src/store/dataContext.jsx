@@ -8,7 +8,7 @@ export const ListContextProvider=(props)=>{
   const[list,setList]=useState(['GOOGL','MSFT','AMZN']);
 const addStock=(stock)=>{
   if(list.indexOf(stock)===-1)
-setList(...list,stock)
+setList([...list,stock])
 }
 const deleteStock=(stock)=>{
  const newList= list.filter((item)=>{

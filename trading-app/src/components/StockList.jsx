@@ -2,6 +2,7 @@ import { useState,useEffect,useContext } from "react";
 import { BsCaretUpFill,BsCaretDownFill } from "react-icons/bs";
 import finnHub from "../api/finnHub.js"
 import Search from "./Search.jsx";
+import { useNavigate } from "react-router-dom";
 // import React from "react"
 import { WatchListContext } from "../store/dataContext.jsx";
 function StockList(){
@@ -12,8 +13,14 @@ function StockList(){
    const changeColor=(change)=>{
     return change>0?"success":"danger"
    };
+
    const renderIcon=(change)=>{
     return change>0?<BsCaretUpFill />:<BsCaretDownFill />
+   }
+   //navigation from one UI to another
+   const navigate=useNavigate()
+   const handleStockSelect=(symbol)=>{
+navigate(`/stock-detail/:${symbol}`)
    }
 
   useEffect(()=>{
@@ -66,7 +73,7 @@ function StockList(){
     {
       stock.map((itemData)=>{
         return(
-        <tr className="table-row" key={itemData.symbol}>
+        <tr style={{cursor:"pointer"}} onClick={()=>handleStockSelect(itemData.symbol)} className="table-row" key={itemData.symbol}>
           <td>{itemData.symbol}</td>
           <td>{itemData.data.c}</td>
           <td className={`text-${changeColor(itemData.data.d)}`}>{itemData.data.d}{renderIcon(itemData.data.d)}</td>
