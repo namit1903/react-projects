@@ -6,7 +6,7 @@
     setCart([...cart,item])
   }
 const removeCart = (item)=>{
-  const newCart=cart.filter((!item))
+  const newCart=cart.filter((arr)=>{return arr.name!=item})
   setCart(newCart);
 
 }
