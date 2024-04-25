@@ -1,4 +1,5 @@
 import { useEffect,useState} from "react"
+import { StockChart } from "../components/StockChart";
 import { useParams } from "react-router-dom"//to keep track of the url parameters
 //lets fetch the data for the stock detail page component
 import finnHub from "../api/finnHub"
@@ -6,6 +7,14 @@ import finnHub from "../api/finnHub"
 export default function StockDetail(){
   const {symbol}=useParams();
   const[chartData,setChartData]=useState();
+  const formatData=(data)=>{
+return data.t.map((item,index)=>{
+  return{
+    x:item*1000,
+    y:data.c[index]
+  }
+})
+  }
   useEffect(()=>{
 const fetchData=async()=>{
   
@@ -41,6 +50,12 @@ try
   }})            ])
  
   console.log("jawab mila",responses);
+  setChartData({
+    day:formatData(responses[0].data),
+    Week:formatData(responses[1].data),
+    Year:formatData(responses[2].data)
+  
+  })
 }
   catch(error){
     console.log("errOr hai bhai detail me=>",error)
@@ -50,9 +65,11 @@ try
 //now call fetchdata ya call api
 fetchData();    
 }
-,[])
+,[symbol])
   return <>
-  <div>Symbol is {symbol}</div>
+  <div>STOCKCHART
+  {chartData && (<><div><StockChart chartData={chartData}/></div></>)}
+  </div>
   
   </>
 }
