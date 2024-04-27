@@ -1,6 +1,41 @@
-.container{
-  display: flex;
+.app-container{
+  display:flex;
 }
 .content{
-  /* display: flex; */
+  width:100%;
+}
+.sidebar{
+  min-height: 700px;
+  width:5px;
+}
+.post-container{
+  margin:20px;
+  width: 50%;;
+  margin-left:30%;
+}
+.post-card{
+  margin:20px 50px;
+  min-width: 30rem;
+}
+.hashtag{
+  margin:0px,5px;
+}
+.omg{
+  position: absolute;
+  border:4px;
+  position: absolute;
+  top: 50%; /* Aligns Block A vertically at 50% of Block B's height */
+  left: 50%; /* Aligns Block A horizontally at 50% of Block B's width */
+  transform: translate(-50%, -50%); /* Centers Block A preci*/
+}
+.create-post{
+  width:80%;
+  margin-left:10%;
+  margin-top: 50px;
+}
+.WelcomeMessage{
+  margin:100px 0px;
+}
+.spinner{
+  margin: 50px;
 }
