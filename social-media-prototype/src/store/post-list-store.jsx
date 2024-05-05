@@ -1,4 +1,4 @@
-import { createContext, useReducer } from "react";
+ import { createContext, useReducer } from "react";
 
 const DEFAULT_CONTEXT = {
   postList: [],
@@ -50,7 +50,7 @@ const [postList, dispatchPostList] = useReducer(postListReducer, []);
   const deletePost = (postId) => {
     dispatchPostList({
       type: "DELETE_POST",
-      payload: {
+      payload: { 
         postId,
       },
     });
