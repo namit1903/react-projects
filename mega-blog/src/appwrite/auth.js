@@ -58,4 +58,4 @@ throw error;
 
   const authService = new AuthService();
 
-export default AuthService;
+export default authService;
