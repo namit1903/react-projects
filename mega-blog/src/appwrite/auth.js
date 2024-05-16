@@ -48,7 +48,10 @@ throw error;
   }
   async logout(){
     try{
-    await this.account.deleteSessions('current');
+    const session=await this.account.deleteSessions('current');
+    if(session){
+      const userData=await authService.getCurrentUser();
+    }
   }  catch(error){
     throw error;
       }
