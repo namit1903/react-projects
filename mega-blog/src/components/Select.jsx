@@ -1,5 +1,5 @@
 import React,{useId} from 'react'
-//mrthod 02 of using forward ref
+//method 02 of using forward ref
 function Select({
   options,
   label,
