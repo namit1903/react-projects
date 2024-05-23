@@ -7,7 +7,7 @@ function TaskList() {
   // console.log('delet clicked')
   // }
   let {tasks} =useContext(TaskContext);
-  console.log("heu",tasks);
+  // console.log("heu",tasks);
     return (
      <React.Fragment>
         {tasks.map((todo,index)=>(

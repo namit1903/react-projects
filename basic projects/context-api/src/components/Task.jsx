@@ -6,7 +6,7 @@ function Task({task,indexx}) {
   return (
     <div className='todoList'>
     <div className='task'>{task}</div>
-    <button onClick={()=>handleDelete(indexx,task)}>delete</button>
+    <button onClick={()=>handleDelete(indexx)}>delete</button>
     </div>
   )
 }

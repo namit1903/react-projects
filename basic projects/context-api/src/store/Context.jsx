@@ -14,8 +14,11 @@ export function TaskProvider({children}){
   }
   //delete
   const handleDelete=(idx,todo)=>{
-    console.log("idx and todo "+idx," ",todo)
-let newtasks=tasks.filter((item,index)=>(item!==todo && index!==idx));
+    console.log("idx and todo "+idx," ")
+    // console.log((index!=idx))
+let newtasks=tasks.filter((item,index)=>(index!=idx))
+// let newtasks=tasks.filter((item,index)=>(item!==todo && index!==idx));
+console.log('ye h task ',newtasks)
 setTask(newtasks);
 
   }
